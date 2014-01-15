@@ -1,111 +1,46 @@
 (function () {
 	'use strict';
-	function Customer() {};
+	var Customer = require('../src/customer.js'),
+		dbsql = require('../src/dbsql.js');
 
-	Customer.prototype.setName = function (name) {
-		if (name && typeof name === "string") {
-			var reg = /[a-z,A-Z, ]/;
-			if (reg.test(name) && name.length < 50) {
-				this.name = name.toString();
-			} else {
-				throw new Error("Nome inválido para inscrever no banco de dados.");
+	module.exports = (function () {
+		var msg = "Hello World";
+
+		return function (req, res) {
+			var newCustomer = new Customer();
+
+			try {
+				newCustomer.setName(req.body.nomeFormSimples);
+				newCustomer.setLastName(req.body.sobrenomeFormSimples);
+				newCustomer.setCPF(req.body.cpfFormSimples);
+				newCustomer.setRG(req.body.rgFormSimples);
+				newCustomer.setEmail(req.body.emailFormSimples);
+				newCustomer.setBirthday(req.body.nascimentoFormSimples);
+				newCustomer.setCel(req.body.celFormSimples);
+				newCustomer.setTel(req.body.telFormSimples);
+			} catch (e) {
+				console.log(e.message);
+				return;
 			}
-		} else {
-			throw new Error("Tipo inválido.");
-		}
-	};
 
-	Customer.prototype.setLastName = function (lastName) {
-		if (lastName && typeof lastName === "string") {
-			var reg = /[a-z,A-Z, ]/;
-			if (reg.test(lastName) && lastName.length < 50) {
-				this.lastName = lastName.toString();
-			} else {
-				throw new Error("Sobrenome inválido para inscrever no banco de dados.");
+			try {
+				var conn = new dbsql();
+				conn.insertNewCustomer(newCustomer);
+			} catch (e) {
+				console.log(e.message);
+				return;
 			}
-		} else {
-			throw new Error("Tipo inválido.");
-		}
-	};
 
-	Customer.prototype.setCPF = function (cpf) {
-		if (cpf && typeof cpf === "string") {
-			var reg = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
-			if (reg.test(cpf) && cpf.length < 15) {
-				this.cpf = cpf.toString();
-			} else {
-				throw new Error("CPF inválido para inscrever no banco de dados.");
-			}
-		} else {
-			throw new Error("Tipo inválido.");
-		}
-	};
-
-	Customer.prototype.setRG = function (rg) {
-		if (rg && typeof rg === "string") {
-			var reg = /^\d{3}\.\d{3}\.\d{3}-\d{1}$/;
-			if (reg.test(rg) && rg.length < 14) {
-				this.rg = rg.toString();
-			} else {
-				throw new Error("RG inválido para inscrever no banco de dados.");
-			}
-		} else {
-			throw new Error("Tipo inválido.");
-		}
-	};
-
-	Customer.prototype.setEmail = function (email) {
-		if (email && typeof email === "string") {
-			var reg = /^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})$/;
-			if (reg.test(email) && email.length < 70) {
-				this.email = email.toString();
-			} else {
-				throw new Error("E-mail inválido para inscrever no banco de dados.");
-			}
-		} else {
-			throw new Error("Tipo inválido.");
-		}
-	};
-
-	Customer.prototype.setBirthday = function (date) {
-		if (date && typeof date === "string") {
-			var reg = /^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/;
-			if (reg.test(date) && date.length < 11) {
-				this.nascimento = date.toString();
-			} else {
-				throw new Error("Nascimento inválido para inscrever no banco de dados.");
-			}
-		} else {
-			throw new Error("Tipo inválido.");
-		}
-	};
-
-	Customer.prototype.setCel = function (cel) {
-		if (cel && typeof cel === "string") {
-			var reg = /^\(\d{2}\)\d{5}-\d{4}$/;
-			if (reg.test(cel) && cel.length < 15) {
-				this.cel = cel.toString();
-			} else {
-				throw new Error("Número do celular inválido para inscrever no banco de dados.");
-			}
-		} else {
-			throw new Error("Tipo inválido.");
-		}
-	};
-
-	Customer.prototype.setTel = function (tel) {
-		if (tel && typeof tel === "string") {
-			var reg = /^\(\d{2}\)\d{4}-\d{4}$/;
-			if (reg.test(tel) && tel.length < 14) {
-				this.tel = tel.toString();
-			} else {
-				throw new Error("Número do telefone inválido para inscrever no banco de dados.");
-			}
-		} else {
-			throw new Error("Tipo inválido.");
-		}
-	};
-
-	module.exports = Customer;
+			res.write("Nome : " + newCustomer.name 
+					+ "\nSobrenome : " + newCustomer.lastName 
+					+ "\nCPF : " + newCustomer.cpf
+					+ "\nRG : " + newCustomer.rg 
+					+ "\nE-mail : " + newCustomer.email
+					+ "\nNascimento : " + newCustomer.birthday
+					+ "\nCelular : " + newCustomer.cel
+					+ "\nTelefone : " + newCustomer.tel);
+			res.end();
+		};
+	}).call(this);
 
 }).call(this);
