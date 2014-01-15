@@ -1,0 +1,25 @@
+* { margin: 0; }
+
+body {
+    font-family: "Courier New";
+}
+
+h1 {
+    text-align: center;
+}
+
+#geral {
+    width : inherit;
+    height : inherit;
+}
+
+#formCont {
+    width : 600px;
+    height : auto;
+    margin : 0px auto;
+}
+
+.destaque {
+    font-size : 18px;
+    font-weight : bolder;
+}
