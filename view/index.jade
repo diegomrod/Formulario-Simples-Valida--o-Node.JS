@@ -1,0 +1,80 @@
+doctype html
+html(lang='pt')
+  head
+    title Formulario Simples
+    meta(charset='utf-8')
+    link(rel='stylesheet', type='text/css', href='css/geral.css')
+    script(src='js/valida.js')
+  body
+    div#geral
+      div#formCont
+        h1 Formulário Simples
+        br
+        form#formSimples(name='formSimples', action='/cadastro', method='post')
+          table#tableFormSimples
+            tr
+              td
+                span.lblFormSimples Nome :
+              td
+                input#nomeFormSimples.inputFormSimples.textFormSimples(name='nomeFormSimples', type='text')
+              td
+                span.alertaMsg
+            tr
+              td
+                span.lblFormSimples Sobrenome :
+              td
+                input#sobrenomeFormSimples.inputFormSimples.textFormSimples(name='sobrenomeFormSimples', type='text')
+              td
+                span.alertaMsg
+            tr
+              td
+                span.lblFormSimples Data de Nascimento :
+              td
+                input#nascimentoFormSimples.inputFormSimples.dataFormSimples(name='nascimentoFormSimples', type='text')
+              td
+                span.alertaMsg
+            tr
+              td
+                span.lblFormSimples RG :
+              td
+                input#rgFormSimples.inputFormSimples.rgFormSimples(name='rgFormSimples', type='text')
+              td
+                span.alertaMsg
+            tr
+              td
+                span.lblFormSimples CPF :
+              td
+                input#cpfFormSimples.inputFormSimples.cpfFormSimples(name='cpfFormSimples', type='text')
+              td
+                span.alertaMsg
+            tr
+            tr
+              td
+                p.divsFormSimples.destaque
+                  | Contato
+            tr
+              td
+                span.telFormSimples Telefone :
+              td
+                input#telFormSimples.inputFormSimples.telFormSimples(name='telFormSimples', type='text')
+              td
+                span.alertaMsg
+            tr
+              td
+                span.celFormSimples Celular :
+              td
+                input#celFormSimples.inputFormSimples.celFormSimples(name='celFormSimples', type='text')
+              td
+                span.alertaMsg
+            tr
+              td
+                span.emailFormSimples E-mail :
+              td
+                input#emailFormSimples.inputFormSimples.emailFormSimples(name='emailFormSimples', type='text')
+              td
+                span.alertaMsg
+            tr
+              td
+                input#submitFormSimples.submitFormSimples(type='button', name='submitFormSimples', value='Enviar')
+              td
+              td
